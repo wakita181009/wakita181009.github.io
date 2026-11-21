@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tetsuya Wakita</title>
+  <meta name="description" content="Tetsuya Wakita — VP of Engineering based in Bangkok. Backend and infrastructure at scale, AI-augmented engineering, and open source.">
+  <link rel="canonical" href="https://wakita.me/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="Tetsuya Wakita">
+  <meta property="og:description" content="VP of Engineering based in Bangkok. Backend and infrastructure at scale, AI-augmented engineering, and open source.">
+  <meta property="og:url" content="https://wakita.me/">
+  <meta name="twitter:card" content="summary">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Tetsuya Wakita",
+    "alternateName": "脇田哲也",
+    "jobTitle": "VP of Engineering",
+    "worksFor": { "@type": "Organization", "name": "LR, Inc." },
+    "address": { "@type": "PostalAddress", "addressLocality": "Bangkok", "addressCountry": "TH" },
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "Tokyo Institute of Technology" },
+    "url": "https://wakita.me/",
+    "sameAs": [
+      "https://github.com/wakita181009",
+      "https://www.linkedin.com/in/wakita181009/",
+      "https://buymeacoffee.com/wakita181009"
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --paper: #f4f1ea;
+      --paper-raised: #ebe6db;
+      --ink: #1b1a17;
+      --ink-soft: #55524a;
+      --rule: #d6cfc0;
+      --accent: #c8402a;
+      --accent-ink: #f4f1ea;
+      --coffee: #ffdd00;
+      --coffee-ink: #1b1a17;
+
+      --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
+      --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+      --text-base: clamp(1.05rem, 0.98rem + 0.3vw, 1.2rem);
+      --text-small: 0.8rem;
+      --text-hero: clamp(3rem, 1.6rem + 6vw, 6.5rem);
+      --space-section: clamp(3.5rem, 2.5rem + 4vw, 7rem);
+      --gutter: clamp(1rem, 0.5rem + 2.5vw, 3rem);
+
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      color-scheme: light;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --paper: #141311;
+        --paper-raised: #1e1c19;
+        --ink: #ece7dc;
+        --ink-soft: #a39d90;
+        --rule: #36322c;
+        --accent: #ff6b4f;
+        --accent-ink: #141311;
+        color-scheme: dark;
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --paper: #141311;
+      --paper-raised: #1e1c19;
+      --ink: #ece7dc;
+      --ink-soft: #a39d90;
+      --rule: #36322c;
+      --accent: #ff6b4f;
+      --accent-ink: #141311;
+      color-scheme: dark;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { -webkit-text-size-adjust: 100%; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: var(--text-base);
+      line-height: 1.6;
+      font-optical-sizing: auto;
+      text-rendering: optimizeLegibility;
+    }
+
+    a { color: inherit; text-decoration-color: var(--accent); text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+    a:hover { color: var(--accent); }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+    .skip { position: absolute; left: -999px; }
+    .skip:focus { left: var(--gutter); top: 1rem; background: var(--ink); color: var(--paper); padding: 0.5rem 0.75rem; }
+
+    .label {
+      font-family: var(--mono);
+      font-size: var(--text-small);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    /* ---------- Top bar ---------- */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.1rem var(--gutter);
+      border-bottom: 1px solid var(--rule);
+      font-family: var(--mono);
+      font-size: var(--text-small);
+    }
+    .topbar nav { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+    .topbar nav a { text-decoration: none; }
+    .topbar nav a:hover { text-decoration: underline; }
+
+    .theme-toggle {
+      font: inherit;
+      background: none;
+      color: var(--ink-soft);
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      padding: 0.25rem 0.7rem;
+      cursor: pointer;
+      transition: color 150ms, border-color 150ms;
+    }
+    .theme-toggle:hover { color: var(--ink); border-color: var(--ink-soft); }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      padding: clamp(3rem, 2rem + 6vw, 8rem) var(--gutter) var(--space-section);
+      max-width: 82rem;
+      margin: 0 auto;
+    }
+    .hero h1 {
+      font-size: var(--text-hero);
+      font-weight: 500;
+      line-height: 0.95;
+      letter-spacing: -0.025em;
+      margin: 1.25rem 0 0;
+    }
+    .hero h1 .ja {
+      display: block;
+      font-size: 0.32em;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      color: var(--ink-soft);
+      margin-top: 0.9rem;
+    }
+    .hero .lede {
+      max-width: 38rem;
+      font-size: clamp(1.2rem, 1rem + 0.8vw, 1.6rem);
+      line-height: 1.45;
+      margin: 2.5rem 0 0;
+    }
+    .hero .lede em { color: var(--accent); font-style: italic; }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 2rem;
+      margin-top: 2.5rem;
+    }
+    .hero-meta span::before { content: "◆ "; color: var(--accent); }
+
+    .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2.5rem; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      text-decoration: none;
+      padding: 0.7rem 1.1rem;
+      border: 1px solid var(--ink);
+      border-radius: 3px;
+      transition: transform 200ms var(--ease), box-shadow 200ms var(--ease), background-color 150ms;
+    }
+    .btn:hover { color: inherit; transform: translate(-2px, -2px); box-shadow: 3px 3px 0 var(--ink); }
+    .btn:active { transform: translate(0, 0); box-shadow: none; }
+    .btn svg { width: 1.05em; height: 1.05em; flex: none; }
+    .btn-coffee { background: var(--coffee); color: var(--coffee-ink); border-color: var(--coffee-ink); }
+    .btn-coffee:hover { color: var(--coffee-ink); }
+
+    /* ---------- Numbers ---------- */
+    .numbers {
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      background: var(--paper-raised);
+    }
+    .numbers dl {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      max-width: 82rem;
+      margin: 0 auto;
+    }
+    .numbers div {
+      padding: 2rem var(--gutter);
+      border-left: 1px solid var(--rule);
+    }
+    .numbers div:first-child { border-left: 0; }
+    .numbers dt { font-size: clamp(2.2rem, 1.6rem + 2vw, 3.4rem); font-weight: 500; line-height: 1; letter-spacing: -0.02em; }
+    .numbers dt sup { color: var(--accent); font-size: 0.5em; vertical-align: 0.6em; }
+    .numbers dd { margin: 0.75rem 0 0; }
+
+    /* ---------- Sections ---------- */
+    main section {
+      display: grid;
+      grid-template-columns: minmax(10rem, 1fr) 3fr;
+      gap: 2rem var(--gutter);
+      max-width: 82rem;
+      margin: 0 auto;
+      padding: var(--space-section) var(--gutter) 0;
+    }
+    main section > h2 {
+      margin: 0;
+      position: sticky;
+      top: 1.5rem;
+      align-self: start;
+    }
+    main section > h2 .num { color: var(--accent); margin-right: 0.5rem; }
+
+    .prose p { margin: 0 0 1.1em; max-width: 40rem; }
+    .prose p:last-child { margin-bottom: 0; }
+
+    /* Experience */
+    .role { padding: 0 0 2.25rem; margin: 0 0 2.25rem; border-bottom: 1px solid var(--rule); }
+    .role:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
+    .role-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.25rem 1rem; }
+    .role h3 { font-size: 1.6rem; font-weight: 500; margin: 0; letter-spacing: -0.01em; }
+    .role .org-note { color: var(--ink-soft); font-style: italic; margin: 0.25rem 0 1.25rem; }
+    .position { margin-top: 1.25rem; }
+    .position-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.25rem 1rem; }
+    .position h4 { font-size: 1.1rem; font-weight: 600; margin: 0; }
+    .position ul { margin: 0.6rem 0 0; padding-left: 1.1rem; max-width: 44rem; }
+    .position li { margin-bottom: 0.35rem; }
+    .position li::marker { color: var(--accent); }
+
+    /* Cards (projects / writing) */
+    .list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
+    .list li { border-bottom: 1px solid var(--rule); }
+    .list a {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.25rem 1.5rem;
+      padding: 1.4rem 0.25rem;
+      text-decoration: none;
+      transition: padding-left 250ms var(--ease), background-color 200ms;
+    }
+    .list a:hover { color: inherit; background: var(--paper-raised); padding-left: 1rem; }
+    .list a:hover .title { color: var(--accent); }
+    .list .title { font-size: 1.3rem; font-weight: 500; line-height: 1.3; transition: color 150ms; }
+    .list .desc { grid-column: 1; color: var(--ink-soft); }
+    .list .meta { grid-column: 2; grid-row: 1 / span 2; align-self: center; text-align: right; }
+    .list .arrow { display: inline-block; transition: transform 250ms var(--ease); }
+    .list a:hover .arrow { transform: translate(3px, -3px); }
+
+    /* Skills */
+    .skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1.75rem 2.5rem; margin: 0; }
+    .skills dt { margin-bottom: 0.4rem; }
+    .skills dd { margin: 0; }
+
+    .edu p { margin: 0 0 0.75rem; }
+
+    /* Support */
+    .support {
+      max-width: 82rem;
+      margin: var(--space-section) auto 0;
+      padding: 0 var(--gutter);
+    }
+    .support-card {
+      position: relative;
+      background: var(--ink);
+      color: var(--paper);
+      padding: clamp(2rem, 1.5rem + 3vw, 4rem);
+      border-radius: 4px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1.5rem 3rem;
+      align-items: center;
+    }
+    .support-card h2 { font-size: clamp(1.8rem, 1.3rem + 2vw, 2.8rem); font-weight: 500; line-height: 1.1; margin: 0 0 0.75rem; letter-spacing: -0.015em; }
+    .support-card p { margin: 0; max-width: 34rem; opacity: 0.8; }
+    .support-card .btn { border-color: var(--coffee); font-size: 0.95rem; padding: 0.9rem 1.3rem; }
+    .support-card .btn:hover { box-shadow: 4px 4px 0 var(--accent); }
+
+    footer {
+      max-width: 82rem;
+      margin: 0 auto;
+      padding: 3rem var(--gutter) 2.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    @media (max-width: 560px) {
+      .topbar nav a { display: none; }
+    }
+
+    @media (max-width: 760px) {
+      .numbers dl { grid-template-columns: repeat(2, 1fr); }
+      .numbers div:nth-child(3) { border-left: 0; }
+      .numbers div:nth-child(n+3) { border-top: 1px solid var(--rule); }
+      main section { grid-template-columns: 1fr; gap: 1.25rem; }
+      main section > h2 { position: static; }
+      .support-card { grid-template-columns: 1fr; }
+      .list a { grid-template-columns: 1fr; }
+      .list .meta { grid-column: 1; grid-row: auto; text-align: left; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+  <script>
+    // Applied before paint so a saved theme doesn't flash the opposite one.
+    try {
+      const saved = localStorage.getItem("theme");
+      if (saved === "light" || saved === "dark") document.documentElement.dataset.theme = saved;
+    } catch (_) {}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <a href="/" class="label" style="text-decoration:none;color:var(--ink)">wakita.me</a>
+    <nav aria-label="Main navigation">
+      <a href="#experience">Experience</a>
+      <a href="#open-source">Open source</a>
+      <a href="#writing">Writing</a>
+      <a href="#support">Support</a>
+      <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Toggle color theme">theme</button>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-heading" style="display:block">
+      <p class="label">VP of Engineering · Bangkok</p>
+      <h1 id="hero-heading">Tetsuya<br>Wakita<span class="ja" lang="ja">脇田 哲也</span></h1>
+      <p class="lede">
+        I build backend platforms that run at <em>billions of requests a month</em>, and the engineering
+        organizations that keep them running. These days I spend most of my time on AI-augmented
+        engineering: putting LLM agents into real production workflows.
+      </p>
+      <div class="hero-meta label">
+        <span>LR, Inc.</span>
+        <span>9+ years in engineering</span>
+        <span>Japan · Thailand · Vietnam · India</span>
+      </div>
+      <div class="actions">
+        <a class="btn" href="https://www.linkedin.com/in/wakita181009/" rel="me noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zm7 0h3.8v1.5h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1v5.45h-4v-4.83c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.91h-4z"/></svg>
+          LinkedIn
+        </a>
+        <a class="btn" href="https://github.com/wakita181009" rel="me noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>
+          GitHub
+        </a>
+        <a class="btn btn-coffee" href="https://buymeacoffee.com/wakita181009" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><path d="M6 2v2M10 2v2M14 2v2"/></svg>
+          Buy me a coffee
+        </a>
+      </div>
+    </section>
+
+    <div class="numbers" aria-label="Selected numbers">
+      <dl>
+        <div><dt>10B<sup>+</sup></dt><dd class="label">Monthly ad impressions served</dd></div>
+        <div><dt>1,000<sup>+</sup></dt><dd class="label">Publisher sites in 15 countries</dd></div>
+        <div><dt>100M<sup>+</sup></dt><dd class="label">User records on Cloud Spanner</dd></div>
+        <div><dt>70</dt><dd class="label">Engineers led across 4 countries</dd></div>
+      </dl>
+    </div>
+
+    <section aria-labelledby="about-heading">
+      <h2 id="about-heading" class="label"><span class="num">01</span>About</h2>
+      <div class="prose">
+        <p>
+          I started as the only engineer at FourM, an ad-tech startup, where I built the whole platform
+          on my own. AnyMind Group acquired the company in 2017, and that system grew into AnyManager,
+          an ad-delivery platform serving more than ten billion impressions a month.
+        </p>
+        <p>
+          Over the next nine years at AnyMind I went from tech lead to Head of Engineering to VP of
+          Engineering, running teams across Japan, Thailand, Vietnam and India for a TSE-listed company.
+          I care about functional, clean architecture on the backend, cloud cost that someone actually
+          looks at, and engineering metrics that hold up in a performance review.
+        </p>
+        <p>
+          Since November 2026 I have been VP of Engineering at LR, Inc. I live in Bangkok.
+        </p>
+      </div>
+    </section>
+
+    <section id="experience" aria-labelledby="exp-heading">
+      <h2 id="exp-heading" class="label"><span class="num">02</span>Experience</h2>
+      <div>
+        <article class="role">
+          <div class="role-head">
+            <h3>LR, Inc.</h3>
+            <span class="label">Nov 2026 – Present</span>
+          </div>
+          <div class="position">
+            <h4>VP of Engineering</h4>
+          </div>
+        </article>
+
+        <article class="role">
+          <div class="role-head">
+            <h3><a href="https://anymindgroup.com" rel="noopener">AnyMind Group</a></h3>
+            <span class="label">Oct 2017 – Oct 2026</span>
+          </div>
+          <p class="org-note">Brand-enablement technology company, TSE: 5027, operating in 15 countries</p>
+
+          <div class="position">
+            <div class="position-head"><h4>VP of Engineering</h4><span class="label">2025 – 2026</span></div>
+            <ul>
+              <li>Ran engineering strategy for up to 70 engineers across Japan, Thailand, Vietnam and India.</li>
+              <li>Cut monthly GCP spend by 17% through commitment planning, GKE tuning, a CDN migration and private-network consolidation.</li>
+              <li>Rolled out Claude Code company-wide through Vertex AI, with OpenTelemetry-based adoption metrics.</li>
+              <li>Took the internal AI agent, AnyAI, from prototype to production on Cloud Run with LangGraph and multiple MCP servers.</li>
+              <li>Unified authentication for 20+ subsystems and introduced DORA-based engineering metrics.</li>
+            </ul>
+          </div>
+
+          <div class="position">
+            <div class="position-head"><h4>Head of Engineering</h4><span class="label">2024</span></div>
+            <ul>
+              <li>Replaced public gRPC endpoints with a Shared VPC and a six-cluster GKE fleet.</li>
+              <li>Introduced an org-wide gRPC schema registry used by 8 teams and 30+ services.</li>
+              <li>Put five products behind a single Apollo Federation GraphQL gateway.</li>
+            </ul>
+          </div>
+
+          <div class="position">
+            <div class="position-head"><h4>Tech Lead / Senior Software Engineer</h4><span class="label">2017 – 2023</span></div>
+            <ul>
+              <li>Designed AnyX on Kotlin, Spring Boot and Arrow-kt; its clean-architecture layout became the company standard.</li>
+              <li>Scaled AnyManager's CDN-based ad delivery to 10B+ monthly impressions on 1,000+ publisher sites.</li>
+              <li>Modeled 100M+ user records on Cloud Spanner with a three-level interleaved hierarchy.</li>
+              <li>Moved impression logging to GCS batch loads into BigQuery, removing streaming-insert costs at that scale.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="role">
+          <div class="role-head">
+            <h3>FourM</h3>
+            <span class="label">Apr 2016 – Sep 2017</span>
+          </div>
+          <p class="org-note">Ad-tech startup, acquired by AnyMind Group in 2017</p>
+          <div class="position">
+            <h4>Software Engineer (sole engineer)</h4>
+            <ul>
+              <li>Built the entire ad-tech platform alone on Python/Django, Angular and GCP.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="open-source" aria-labelledby="oss-heading">
+      <h2 id="oss-heading" class="label"><span class="num">03</span>Open source</h2>
+      <ul class="list">
+        <li>
+          <a href="https://github.com/wakita181009/zod-aot" rel="noopener">
+            <span class="title">zod-aot</span>
+            <span class="desc">Compiles Zod schemas into validation functions at build time. Existing schemas stay as they are and validate 2–60× faster.</span>
+            <span class="meta label">TypeScript <span class="arrow">↗</span></span>
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/wakita181009/dateutil-rs" rel="noopener">
+            <span class="title">python-dateutil-rs</span>
+            <span class="desc">A drop-in, Rust-powered replacement for python-dateutil.</span>
+            <span class="meta label">Rust · Python <span class="arrow">↗</span></span>
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/wakita181009/vault-mcp" rel="noopener">
+            <span class="title">vault-mcp</span>
+            <span class="desc">A remote MCP server on Cloudflare Workers that gives Claude read and write access to a GitHub-hosted Obsidian vault.</span>
+            <span class="meta label">TypeScript <span class="arrow">↗</span></span>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <section id="writing" aria-labelledby="writing-heading">
+      <h2 id="writing-heading" class="label"><span class="num">04</span>Writing &amp; press</h2>
+      <ul class="list">
+        <li>
+          <a href="https://thenextweb.com/news/llms-remember-code-not-life-portable-context-layer" rel="noopener">
+            <span class="title">LLMs remember your code, not your life: Building a portable personal context layer</span>
+            <span class="desc">Article · The Next Web</span>
+            <span class="meta label">Sep 2026 <span class="arrow">↗</span></span>
+          </a>
+        </li>
+        <li>
+          <a href="https://finbold.com/tetsuya-wakita-interview/" rel="noopener">
+            <span class="title">Interview with Tetsuya Wakita</span>
+            <span class="desc">Interview · Finbold</span>
+            <span class="meta label">Nov 2026 <span class="arrow">↗</span></span>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="skills-heading">
+      <h2 id="skills-heading" class="label"><span class="num">05</span>Toolbox</h2>
+      <dl class="skills">
+        <div><dt class="label">Languages</dt><dd>Kotlin, TypeScript, Python, Rust, Go, Java, Haskell</dd></div>
+        <div><dt class="label">Cloud</dt><dd>GCP (GKE, Cloud Run, Spanner, BigQuery, Pub/Sub), AWS, Kubernetes, Terraform</dd></div>
+        <div><dt class="label">APIs</dt><dd>gRPC, GraphQL Federation, REST, event-driven messaging</dd></div>
+        <div><dt class="label">AI</dt><dd>LangGraph, MCP, Vertex AI, Claude Agent SDK, LLM observability with OpenTelemetry</dd></div>
+        <div><dt class="label">Architecture</dt><dd>Clean Architecture, DDD, functional programming (Arrow-kt), CQRS</dd></div>
+        <div class="edu"><dt class="label">Education</dt><dd>
+          <p>B.Eng., Industrial Engineering &amp; Management, Tokyo Institute of Technology, 2016</p>
+          <p>Google Cloud Professional Cloud Database Engineer, 2024</p>
+        </dd></div>
+      </dl>
+    </section>
+  </main>
+
+  <aside id="support" class="support" aria-labelledby="support-heading">
+    <div class="support-card">
+      <div>
+        <h2 id="support-heading">Found something useful here?</h2>
+        <p>If one of my open-source projects or articles saved you some time, you can buy me a coffee. It goes straight back into side projects.</p>
+      </div>
+      <a class="btn btn-coffee" href="https://buymeacoffee.com/wakita181009" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><path d="M6 2v2M10 2v2M14 2v2"/></svg>
+        Buy me a coffee
+      </a>
+    </div>
+  </aside>
+
+  <footer class="label">
+    <span>© <span id="year">2026</span> Tetsuya Wakita</span>
+    <span>Bangkok, Thailand</span>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const toggle = document.getElementById("theme-toggle");
+    const root = document.documentElement;
+    const isDark = () =>
+      root.dataset.theme === "dark" ||
+      (!root.dataset.theme && matchMedia("(prefers-color-scheme: dark)").matches);
+    const render = () => { toggle.textContent = isDark() ? "☀ light" : "☾ dark"; };
+
+    toggle.addEventListener("click", () => {
+      const next = isDark() ? "light" : "dark";
+      root.dataset.theme = next;
+      try { localStorage.setItem("theme", next); } catch (_) {}
+      render();
+    });
+    render();
+  </script>
+</body>
+</html>
